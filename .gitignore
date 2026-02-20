@@ -1,0 +1,36 @@
+# .gitignore for docker_shot project
+# General
+*.log
+*.tmp
+*.swp
+.DS_Store
+Thumbs.db
+
+# Node.js
+node_modules/
+webapp/.next/
+webapp/.env
+webapp/.env.*
+
+# Dotnet
+**/bin/
+**/obj/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# VSCode
+.vscode/
+
+# Docker
+**/.dockerignore
+**/Dockerfile*
+
+# OS generated
+ehthumbs.db
+Icon?
+
+# Others
+.env
+.env.*

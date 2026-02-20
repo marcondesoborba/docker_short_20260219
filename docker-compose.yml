@@ -1,0 +1,40 @@
+version: '3.9'
+services:
+  postgres:
+    build: ./postgresql
+    container_name: postgres
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: Senha123
+      POSTGRES_DB: mensagensdb
+    volumes:
+      - docker-short-yt:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  dotnet-app:
+    build: ./dotnet-app
+    container_name: dotnet-app
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ConnectionStrings__DefaultConnection=Host=postgres;Port=5432;Database=mensagensdb;Username=admin;Password=Senha123
+    depends_on:
+      - postgres
+    ports:
+      - "5000:80"
+
+
+  webapp:
+    build: ./webapp
+    container_name: webapp
+    depends_on:
+      - dotnet-app
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - NEXT_PUBLIC_API_URL=http://dotnet-app:80
+
+volumes:
+  docker-short-yt:
+    name: docker-short-yt
